@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Ice Korea Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <p class="eyebrow">BLACK ICE RISK MAP</p>
+      <h1>블랙아이스 발생확률 전국지도</h1>
+      <p class="desc">결빙지역 · 비결빙지역 · 블랙아이스 사고지점을 통합하여 시각화한 웹 지도입니다.</p>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="card total">
+      <span>전체 지점</span>
+      <strong id="totalCount">0</strong>
+    </div>
+    <div class="card blue">
+      <span>결빙지역</span>
+      <strong id="iceCount">0</strong>
+    </div>
+    <div class="card gray">
+      <span>비결빙지역</span>
+      <strong id="nonIceCount">0</strong>
+    </div>
+    <div class="card red">
+      <span>블랙아이스 사고지점</span>
+      <strong id="blackiceCount">0</strong>
+    </div>
+  </section>
+
+  <section class="controls">
+    <label><input type="checkbox" id="chkIce" checked /> 결빙지역</label>
+    <label><input type="checkbox" id="chkNonIce" checked /> 비결빙지역</label>
+    <label><input type="checkbox" id="chkBlackice" checked /> 블랙아이스 사고지점</label>
+
+    <select id="riskSelect">
+      <option value="전체">위험도 전체</option>
+      <option value="매우 높음">매우 높음</option>
+      <option value="높음">높음</option>
+      <option value="보통">보통</option>
+      <option value="낮음">낮음</option>
+    </select>
+
+    <input id="searchInput" type="text" placeholder="장소, 위치, AWS 지점 검색" />
+  </section>
+
+  <main class="layout">
+    <section id="map"></section>
+
+    <aside class="detail">
+      <h2>지점 상세정보</h2>
+      <p class="hint">지도에서 지점을 클릭하면 결빙확률, 블랙아이스 발생확률, 기상데이터, 위험도가 표시됩니다.</p>
+      <div id="detailBox" class="detail-box empty">선택된 지점이 없습니다.</div>
+    </aside>
+  </main>
+
+  <section class="table-section">
+    <div class="section-title">
+      <h2>블랙아이스 사고지점 목록</h2>
+      <p>label=1인 실제 블랙아이스 사고지점만 표시합니다.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>장소</th>
+            <th>사고일시</th>
+            <th>위험도</th>
+            <th>결빙확률</th>
+            <th>블랙아이스 발생확률</th>
+            <th>기온</th>
+            <th>습도</th>
+            <th>강수량</th>
+          </tr>
+        </thead>
+        <tbody id="accidentTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Data: 결빙확률모델 결과 CSV + 블랙아이스확률모델 결과 CSV</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
